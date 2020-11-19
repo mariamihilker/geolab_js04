@@ -1,0 +1,6 @@
+{
+    "posts": [
+      { "id": 1, "title": "Apple", "author": "todo" }
+      { "id": 2, "title": "Banana", "author": "todo" }
+    ]
+}
