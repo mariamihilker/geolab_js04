@@ -14,7 +14,7 @@ form.addEventListener('submit', (e) => {
     const deleteBtn = document.createElement('button');
     const checkBox = document.createElement('input')
     const showItems = document.querySelector('.done-items')
-    let doneItems  = 0;
+    let doneItems = 0;
     checkBox.setAttribute('type','checkbox');
     checkBox.setAttribute('class','item-checkbox');
     listItem.appendChild(checkBox);
@@ -24,15 +24,17 @@ form.addEventListener('submit', (e) => {
     listItem.appendChild(deleteBtn);
     
     deleteBtn.textContent = 'Delete';
+
     ul.appendChild(listItem);
   
     deleteBtn.addEventListener('click', () => {
       ul.removeChild(listItem);
+      doneItems = document.querySelectorAll('.my-items .striked').length;
+      showItems.innerText = doneItems;
     })
     checkBox.addEventListener('change',() => {
         checkBox.parentElement.classList.toggle('striked');
         doneItems = document.querySelectorAll('.my-items .striked').length;
-
         showItems.innerText = doneItems;
     }) 
     input.value = '';
