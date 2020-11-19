@@ -79,6 +79,9 @@ li button:focus {
   align-items: center;
   justify-content: center;
 }
+.bottom-content h4 {
+  margin: 0;
+}
 .done-items {
   margin-left: 10px;
 }

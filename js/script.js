@@ -2,6 +2,7 @@ const ul = document.querySelector('ul');
 const input = document.querySelector('input');
 const button = document.querySelector('button');
 const form = document.querySelector('form');
+let idForNewElement = getRandomInt(1, 10)
 getData();
 
 form.addEventListener('submit', (e) => {
@@ -9,7 +10,7 @@ form.addEventListener('submit', (e) => {
 
   let myItem = input.value;
   saveinDb(myItem)
-  createItem(myItem)
+  createItem(myItem , idForNewElement)
 
 })
 
@@ -26,8 +27,10 @@ function getData() {
         response.json().then(function(data) {          
           data.forEach(element => {
             const dataText = element.text
-            console.log(dataText);
-            createItem(dataText)
+            const dataId = element.id
+            //   console.log('id-check')
+            //   console.log(itemId)
+            createItem(dataText,dataId)
           });
 
         });
@@ -40,7 +43,7 @@ function getData() {
 
 
 //Get all items from database
-  function createItem(itemText) {
+  function createItem(itemText , itemId) {
     if(itemText != 0) {
       const listItem = document.createElement('li');
       const listText = document.createElement('span');
@@ -52,13 +55,21 @@ function getData() {
       checkBox.setAttribute('class','item-checkbox');
       listItem.appendChild(checkBox);
       listItem.appendChild(listText);
+      
       listText.textContent = itemText;
       
       listItem.appendChild(deleteBtn);
+      listItem.setAttribute('data-id', itemId)
       deleteBtn.textContent = 'Delete';
+    //   console.log('id-check')
+    //   console.log(itemId)
+      const itemgetId = listItem.getAttribute('data-id')
       ul.appendChild(listItem);
     
       deleteBtn.addEventListener('click', () => {
+    //   console.log('id-check')
+    //   console.log(itemgetId) 
+        removeItem(itemgetId)  
         ul.removeChild(listItem);
         doneItems = document.querySelectorAll('.my-items .striked').length;
         showItems.innerText = doneItems;
@@ -92,4 +103,23 @@ fetch('http://localhost:3000/posts', {
   console.error('Error:', error);
 });
 }
+}
+
+//Removing item
+function removeItem(id) {
+fetch(`http://localhost:3000/posts/${id}`, {
+  method: 'DELETE',
+})
+.then(res => res.text()) // or res.json()
+.then(res => console.log(res))
+}
+
+
+/**
+ * Return a random Int Num between min (inclusive) and max (exclusive)
+ */
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
