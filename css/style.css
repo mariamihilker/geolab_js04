@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.content-container {
+  margin: auto;
+  max-width: 700px;
+}
+.todo-form input {
+  padding: 10px;
+}
+.todo-form button {
+  padding: 10px;
+  cursor: pointer;
+}
+.my-items {
+  padding: 0;
+  list-style: none;
+}
+li {
+  margin-bottom: 10px;
+}
+
+li button {
+  font-size: 8px;
+  margin-left: 20px;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .content-container {
+    width: 100%;
+    max-width: unset;
+  }
+}
