@@ -31,6 +31,9 @@ body {
   border: none;
   outline: none;
 }
+.items-list {
+  min-height: 200px;
+}
 .my-items {
   padding: 0;
   list-style: none;
@@ -69,6 +72,15 @@ li button:focus {
   background-color: #bdb2ff;
   outline: none;
   border: none;
+}
+
+.bottom-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.done-items {
+  margin-left: 10px;
 }
 
 @media (max-width: 768px) {

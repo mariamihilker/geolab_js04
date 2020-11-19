@@ -13,7 +13,8 @@ form.addEventListener('submit', (e) => {
     const listText = document.createElement('span');
     const deleteBtn = document.createElement('button');
     const checkBox = document.createElement('input')
-    
+    const showItems = document.querySelector('.done-items')
+    let doneItems  = 0;
     checkBox.setAttribute('type','checkbox');
     checkBox.setAttribute('class','item-checkbox');
     listItem.appendChild(checkBox);
@@ -28,8 +29,11 @@ form.addEventListener('submit', (e) => {
     deleteBtn.addEventListener('click', () => {
       ul.removeChild(listItem);
     })
-    checkBox.addEventListener('click',() => {
-        checkBox.parentElement.classList.toggle('striked')
+    checkBox.addEventListener('change',() => {
+        checkBox.parentElement.classList.toggle('striked');
+        doneItems = document.querySelectorAll('.my-items .striked').length;
+
+        showItems.innerText = doneItems;
     }) 
     input.value = '';
     input.focus();
