@@ -64,7 +64,7 @@ function getData() {
       checkBox.setAttribute('class','item-checkbox');
       checkboxStyle.setAttribute('class','checkbox-style');
       listItem.appendChild(checkBox);
-      listItem.appendChild(checkboxStyle);
+      //listItem.appendChild(checkboxStyle);
       listItem.appendChild(listText);
       
       listText.textContent = itemText;
@@ -75,7 +75,7 @@ function getData() {
       listItem.setAttribute('data-status', itemStatus)
       deleteBtn.textContent = 'Delete';
     //   console.log('status')
-    //   console.log(itemStatus)
+      console.log(itemStatus)
       const itemgetId = listItem.getAttribute('data-id')
       if(itemStatus === true) {
         listItem.classList.add('completed')
@@ -93,7 +93,7 @@ function getData() {
         removeItem(itemgetId)
         showItems();
       })
-      checkBox.addEventListener('change',() => {
+      checkBox.addEventListener('click',() => {
           const itemElem = checkBox.parentElement;
           const elId = itemElem.getAttribute('data-id')
           let elStatus = itemElem.getAttribute('data-status')
@@ -108,8 +108,8 @@ function getData() {
             itemElem.setAttribute('data-status','false')
             updateItem(elId, 'false')
           }
-          console.log('status')
-          console.log(elStatus)
+        //   console.log('status')
+        //   console.log(elStatus)
 
           //saveOrUpdateDb()
           
