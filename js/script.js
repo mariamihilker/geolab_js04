@@ -15,12 +15,12 @@ form.addEventListener('submit', (e) => {
 
   let myItem = input.value;
   saveinDb(myItem)
-  createItem(myItem, idForNewElement, 'open')
+  createItem(myItem, idForNewElement, false)
 
 })
 
 function getData() {
-    fetch('http://localhost:3000/posts')
+    fetch('https://us-central1-js04-b4877.cloudfunctions.net/tasks')
     .then(
       function(response) {
         if (response.status !== 200) {
@@ -29,11 +29,12 @@ function getData() {
           return;
         }
         // Examine the text in the response
-        response.json().then(function(data) {          
-          data.forEach(element => {
+        response.json().then(function(data) {
+            //console.log()          
+            data.data.forEach(element => {
             const dataText = element.text
             const dataId = element.id
-            const dataStatus = element.status
+            const dataStatus = element.completed
             //   console.log('id-check')
             //   console.log(element.status)
               createItem(dataText,dataId,dataStatus)
@@ -70,10 +71,10 @@ function getData() {
       listItem.setAttribute('data-id', itemId)
       listItem.setAttribute('data-status', itemStatus)
       deleteBtn.textContent = 'Delete';
-    //   console.log('id-check')
-    //   console.log(itemId)
+    //   console.log('status')
+    //   console.log(itemStatus)
       const itemgetId = listItem.getAttribute('data-id')
-      if(itemStatus === 'completed') {
+      if(itemStatus === true) {
         listItem.classList.add('completed')
         checkBox.checked = true;
         doneItems ++;
@@ -94,17 +95,19 @@ function getData() {
           const elId = itemElem.getAttribute('data-id')
           let elStatus = itemElem.getAttribute('data-status')
           itemElem.classList.toggle('completed');
+
           showItems();
 
-          if(elStatus === 'open') {
-            itemElem.setAttribute('data-status','completed')
-            updateItem(elId, 'completed')
-          } else if(elStatus === 'completed') {
-            itemElem.setAttribute('data-status','open')
-            updateItem(elId, 'open')
+          if(elStatus === 'false') {
+            itemElem.setAttribute('data-status', 'true')
+            updateItem(elId, 'true')
+          } else if(elStatus === 'true') {
+            itemElem.setAttribute('data-status','false')
+            updateItem(elId, 'false')
           }
-
+          console.log('status')
           console.log(elStatus)
+
           //saveOrUpdateDb()
           
 
@@ -116,9 +119,9 @@ function getData() {
 
 
 function saveinDb(dataText) {
-const data = { text: dataText ,status: 'open' };
+const data = { text: dataText ,completed: 'false' };
 if(data != 0) {
-fetch('http://localhost:3000/posts', {
+fetch('https://us-central1-js04-b4877.cloudfunctions.net/tasks/create', {
   method: 'POST', // or 'PUT'
   headers: {
     'Content-Type': 'application/json',
@@ -137,7 +140,7 @@ fetch('http://localhost:3000/posts', {
 
 //Removing item
 function removeItem(id) {
-fetch(`http://localhost:3000/posts/${id}`, {
+fetch(`https://us-central1-js04-b4877.cloudfunctions.net/tasks/${id}`, {
   method: 'DELETE',
 })
 .then(res => res.text()) // or res.json()
@@ -145,14 +148,14 @@ fetch(`http://localhost:3000/posts/${id}`, {
 }
 
 function updateItem(id, itemStatus) {
-    fetch(`http://localhost:3000/posts/${id}`, {
-    method: "PATCH",
+    fetch(`https://us-central1-js04-b4877.cloudfunctions.net/tasks/check/${id}`, {
+    method: "POST",
     headers: {
         "Content-Type" : "application/json"
       },
     body: JSON.stringify(
       {
-        "status": itemStatus 
+        "completed": itemStatus 
       }
     )
   });
