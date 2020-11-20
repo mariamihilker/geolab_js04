@@ -57,11 +57,14 @@ function getData() {
       const listText = document.createElement('span');
       const deleteBtn = document.createElement('button');
       const checkBox = document.createElement('input')
+      const checkboxStyle = document.createElement('span')
       
       
       checkBox.setAttribute('type','checkbox');
       checkBox.setAttribute('class','item-checkbox');
+      checkboxStyle.setAttribute('class','checkbox-style');
       listItem.appendChild(checkBox);
+      listItem.appendChild(checkboxStyle);
       listItem.appendChild(listText);
       
       listText.textContent = itemText;
