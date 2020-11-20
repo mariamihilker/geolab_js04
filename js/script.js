@@ -64,7 +64,7 @@ function getData() {
       checkBox.setAttribute('class','item-checkbox');
       checkboxStyle.setAttribute('class','checkbox-style');
       listItem.appendChild(checkBox);
-      //listItem.appendChild(checkboxStyle);
+      listItem.appendChild(checkboxStyle);
       listItem.appendChild(listText);
       
       listText.textContent = itemText;
