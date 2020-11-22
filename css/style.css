@@ -143,14 +143,21 @@ li button:focus {
   margin-left: 10px;
 }
 
-@media (max-width: 768px) {
+@media (max-device-width: 768px) {
+  .main-wrap {
+    padding: 20px;
+  }
   .content-container {
-    width: 100%;
+    width: 80%;
     max-width: unset;
     align-items: center;
   }
   .items-list {
     width: 100%;
+    order: 1;
+  }
+  .bottom-content {
+    order: 2;
   }
   .item-checkbox {
     top: 20px;
@@ -160,10 +167,16 @@ li button:focus {
     padding: 15px;
   }
   .todo-form {
-    width: 80%;
+    width: 100%;
     flex-direction: column;
+    order: 3;
+    margin-top: 35px;
+  }
+  .todo-form input {
+    height: 40px;
   }
   .todo-form button {
     margin-top: 15px;
+    padding: 20px;
   }
 }

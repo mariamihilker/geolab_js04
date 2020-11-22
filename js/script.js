@@ -34,9 +34,10 @@ function getData() {
             data.data.forEach(element => {
             const dataText = element.text
             const dataId = element.id
+            const createdAt = element.create_time
             const dataStatus = element.completed
-            //   console.log('id-check')
-            //   console.log(element.status)
+            //   console.log('time')
+            //   console.log(createdAt)
               createItem(dataText,dataId,dataStatus)
           });
 
@@ -74,8 +75,8 @@ function getData() {
       listItem.setAttribute('data-id', itemId)
       listItem.setAttribute('data-status', itemStatus)
       deleteBtn.textContent = 'Delete';
-    //   console.log('status')
-      console.log(itemStatus)
+      // console.log('status')
+      // console.log(itemStatus)
       const itemgetId = listItem.getAttribute('data-id')
       if(itemStatus === true) {
         listItem.classList.add('completed')
@@ -93,24 +94,24 @@ function getData() {
         removeItem(itemgetId)
         showItems();
       })
-      checkBox.addEventListener('click',() => {
+      checkBox.addEventListener('change',() => {
           const itemElem = checkBox.parentElement;
           const elId = itemElem.getAttribute('data-id')
           let elStatus = itemElem.getAttribute('data-status')
           itemElem.classList.toggle('completed');
 
-          showItems();
+          
 
           if(elStatus === 'false') {
             itemElem.setAttribute('data-status', 'true')
-            updateItem(elId, 'true')
+            checkItem(elId, 'true')
           } else if(elStatus === 'true') {
             itemElem.setAttribute('data-status','false')
-            updateItem(elId, 'false')
+            uncheckItem(elId, 'false')
           }
         //   console.log('status')
         //   console.log(elStatus)
-
+          showItems();
           //saveOrUpdateDb()
           
 
@@ -150,7 +151,9 @@ fetch(`https://us-central1-js04-b4877.cloudfunctions.net/tasks/${id}`, {
 .then(res => console.log(res))
 }
 
-function updateItem(id, itemStatus) {
+
+//Mark as completed
+function checkItem(id, itemStatus) {
     fetch(`https://us-central1-js04-b4877.cloudfunctions.net/tasks/check/${id}`, {
     method: "POST",
     headers: {
@@ -163,6 +166,23 @@ function updateItem(id, itemStatus) {
     )
   });
 }
+
+
+//Mark as uncompleted
+function uncheckItem(id, itemStatus) {
+    fetch(`https://us-central1-js04-b4877.cloudfunctions.net/tasks/uncheck/${id}`, {
+    method: "POST",
+    headers: {
+        "Content-Type" : "application/json"
+      },
+    body: JSON.stringify(
+      {
+        "completed": itemStatus 
+      }
+    )
+  });
+}
+
 
 
 
