@@ -30,14 +30,21 @@ function getData() {
         }
         // Examine the text in the response
         response.json().then(function(data) {
-            //console.log()          
+            //sorting with date
+            const sortedData = data.data.sort((element1, element2) => {
+              return element1.create_time - element2.create_time
+            })
+            //console.log(sortedData)
             data.data.forEach(element => {
             const dataText = element.text
             const dataId = element.id
             const createdAt = element.create_time
             const dataStatus = element.completed
-            //   console.log('time')
-            //   console.log(createdAt)
+            let newTime = new Date(createdAt).toLocaleDateString("en-US")
+            //let converted =  newTime.getHours()
+            //newTime = newTime.getHours() + ":" + newTime.getMinutes() + ", " + newTime.toDateString();
+            // console.log('time')
+            // console.log(newTime)
               createItem(dataText,dataId,dataStatus)
           });
 
