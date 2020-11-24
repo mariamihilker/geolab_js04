@@ -40,11 +40,11 @@ function getData() {
             const dataId = element.id
             const createdAt = element.create_time
             const dataStatus = element.completed
-            let newTime = new Date(createdAt).toLocaleDateString("en-US")
+            var newTime = new Date(createdAt);
             //let converted =  newTime.getHours()
             //newTime = newTime.getHours() + ":" + newTime.getMinutes() + ", " + newTime.toDateString();
-            // console.log('time')
-            // console.log(newTime)
+            console.log('time')
+            console.log(newTime)
               createItem(dataText,dataId,dataStatus)
           });
 

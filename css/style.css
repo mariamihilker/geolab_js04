@@ -21,11 +21,13 @@ body {
   padding: 10px;
   border: 1px solid #a0c4ff;
   transition: all 0.3s ease-in-out;
+  width: 50%;
+  max-width: unset;
 }
 .todo-form input:focus {
   border: 1px solid #bdb2ff;
   outline: none;
-  padding-left: 15px;
+  width: 55%;
 }
 .todo-form button {
   padding: 10px;
@@ -160,11 +162,15 @@ li button:focus {
     order: 2;
   }
   .item-checkbox {
-    top: 20px;
-    left: 6px;
+    top: 18px;
+    left: 0px;
+  }
+  .checkbox-style {
+    width: 40px;
+    height: 40px;
   }
   .my-items li {
-    padding: 15px;
+    padding: 2px;
   }
   .todo-form {
     width: 100%;
@@ -174,9 +180,26 @@ li button:focus {
   }
   .todo-form input {
     height: 40px;
+    width: 100%;
+  }
+  .todo-form input:focus {
+    width: 100%;
   }
   .todo-form button {
     margin-top: 15px;
     padding: 20px;
+  }
+  li button {
+    background-color: transparent;
+    background-image: url(../images/remove.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 70px;
+    width: 70px;
+    text-indent: -999999px;
+  }
+  li button:hover {
+    background-color: transparent;
   }
 }
